@@ -2,13 +2,17 @@ package MenuClass;
 
 public class Product {
     private  static  int INDEX =1;
-    private final  int id;
+    private int id;
     private String name;
-    private int price;
+    private double price;
     private int quantity;
     private Category category;
 
-    public Product(String name, int price, int quantity, Category category) {
+   public Product(){
+
+   }
+
+    public Product(String name, double price, int quantity, Category category) {
         this.id = INDEX;
         this.name = name;
         this.price = price;
@@ -29,11 +33,11 @@ public class Product {
         this.name = name;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -64,6 +68,6 @@ public class Product {
                 '}';
     }
     public void display(){
-        System.out.printf("%-5s%s-20s%s-15s%s-10s%s",id,name,price,quantity,category);
+        System.out.printf("%-5s%-20s%-15s%-10s%-15s%-15s%-15s%s",id,name,price,quantity,category.getName(),"","",""+"\n");
     }
 }

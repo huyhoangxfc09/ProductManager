@@ -4,7 +4,7 @@ public class Drinks extends Product{
     private int volume;
     private String bottleType;
 
-    public Drinks(String name, int price, int quantity, Category category, int volume, String bottleType) {
+    public Drinks(String name, double price, int quantity, Category category, int volume, String bottleType) {
         super(name, price, quantity, category);
         this.volume = volume;
         this.bottleType = bottleType;
@@ -33,5 +33,10 @@ public class Drinks extends Product{
                 ", bottleType='" + bottleType + '\'' +
                 ", which is a subclass of "
                 + super.toString();
+    }
+
+    @Override
+    public void display() {
+        System.out.printf("%-5s%-20s%-15s%-10s%-15s%-15s%-15s%s",getId(),getName(),getPrice(),getQuantity(),getCategory().getName(),"",getVolume(),getBottleType()+"\n");
     }
 }
