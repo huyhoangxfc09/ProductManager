@@ -1,6 +1,8 @@
 package MenuClass;
 
-public class Candy extends Product{
+import java.io.Serializable;
+
+public class Candy extends Product implements Serializable {
     private int weight;
 
     public Candy(String name, double price, int quantity, Category category, int weight) {

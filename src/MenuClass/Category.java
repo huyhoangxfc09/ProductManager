@@ -1,6 +1,8 @@
 package MenuClass;
 
-public class Category {
+import java.io.Serializable;
+
+public class Category implements Serializable {
     private static  int INDEX = 1;
     private  final  int id;
     private String name;

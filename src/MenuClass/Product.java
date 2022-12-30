@@ -1,6 +1,8 @@
 package MenuClass;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     private  static  int INDEX =1;
     private int id;
     private String name;
@@ -8,9 +10,6 @@ public class Product {
     private int quantity;
     private Category category;
 
-   public Product(){
-
-   }
 
     public Product(String name, double price, int quantity, Category category) {
         this.id = INDEX;

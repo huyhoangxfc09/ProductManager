@@ -1,14 +1,16 @@
 package Manager;
 
 import MenuClass.Category;
+import MenuClass.Product;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class CategoryManager implements CRUD<Category>{
-    private final ArrayList<Category> categories;
+    private ArrayList<Category> categories;
 
 
     public CategoryManager() {
@@ -109,6 +111,46 @@ public class CategoryManager implements CRUD<Category>{
             }
         }else {
             System.out.println("List categories haven't element!");
+        }
+    }
+    public  void  writeFile(String path){
+        File file = new File(path);
+        try{
+            OutputStream os = new FileOutputStream(file);
+            ObjectOutputStream oos = new ObjectOutputStream(os);
+//            for (Category element :categories){
+//                oos.writeObject(element);
+//            }
+//            oos.flush();
+            oos.writeObject(categories);
+
+            oos.close();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+    public void  readFile(String path){
+        File file = new File(path);
+        try{
+            InputStream is =new  FileInputStream(file);
+            ObjectInputStream ois = new ObjectInputStream(is);
+            categories = (ArrayList<Category>) ois.readObject();
+//            Category list;
+//            while (true){
+//                Object oj = ois.readObject();
+//                if (oj==null){
+//                    break;
+//                }
+//                if(oj!=null){
+//                    list = (Category) oj;
+//                    this.categories.add(list);
+//                }
+//            }
+            ois.close();
+        }catch (IOException e){
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 }

@@ -1,6 +1,8 @@
 package MenuClass;
 
-public class Drinks extends Product{
+import java.io.Serializable;
+
+public class Drinks extends Product implements Serializable {
     private int volume;
     private String bottleType;
 

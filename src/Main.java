@@ -8,10 +8,14 @@ import MenuClass.Product;
 import java.util.Scanner;
 
 public class Main {
+    static String path1 = "C:\\Users\\PC\\OneDrive\\Desktop\\ProductManager\\ProductManager\\src\\Product.data";
+    static String path2 = "C:\\Users\\PC\\OneDrive\\Desktop\\ProductManager\\ProductManager\\src\\Category.data";
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         CategoryManager categoryManager = new CategoryManager();
         ProductManager productManager = new ProductManager(categoryManager);
+        productManager.readFile(path1);
+        categoryManager.readFile(path2);
         menuProduct(productManager,scanner);
     }
     private static  void  menuProduct(ProductManager productManager,Scanner scanner){
@@ -29,6 +33,9 @@ public class Main {
             System.out.println("9. Products with the largest and smallest quantity.");
             System.out.println("10. Show products by bottle type.");
             System.out.println("11. Show products by category.");
+            System.out.println("12. Displays a list of Candy with the largest weight.");
+            System.out.println("13. Search products by name.");
+            System.out.println("14. Write input data to file.");
             System.out.println("0. Exit");
             System.out.println("Enter your choice: ");
             choice = Integer.parseInt(scanner.nextLine());
@@ -39,12 +46,17 @@ public class Main {
                 case 2:
                     Product product = productManager.create(scanner);
                     productManager.add(product);
+                    productManager.writeFile(path1);
                     break;
                 case 3:
+                    productManager.displayAll(productManager.getProducts());
                     productManager.update(scanner);
+                    productManager.writeFile(path1);
                     break;
                 case 4:
+                    productManager.displayAll(productManager.getProducts());
                     productManager.deleteByID(scanner);
+                    productManager.writeFile(path1);
                     break;
                 case 5:
                     productManager.displayAll(productManager.getProducts());
@@ -67,6 +79,12 @@ public class Main {
                 case 11:
                     productManager.displayCategory(scanner);
                     break;
+                case 12:
+                    productManager.maxWeightCandy();
+                    break;
+                case 13:
+                    productManager.searchName(scanner);
+                    break;
             }
         } while (choice!=0);
     }
@@ -85,6 +103,7 @@ public class Main {
                 case 1:
                     Category category =categoryManager.create(scanner);
                     categoryManager.add(category);
+                    categoryManager.writeFile(path2);
                     break;
                 case 2:
                     categoryManager.displayAll(categoryManager.getCategories());
@@ -92,10 +111,12 @@ public class Main {
                 case 3:
                     categoryManager.displayAll(categoryManager.getCategories());
                     categoryManager.deleteByID(scanner);
+                    categoryManager.writeFile(path2);
                     break;
                 case 4:
                     categoryManager.displayAll(categoryManager.getCategories());
                     categoryManager.update(scanner);
+                    categoryManager.writeFile(path2);
                     break;
             }
         } while (choice!=0);

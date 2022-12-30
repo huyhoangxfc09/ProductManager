@@ -5,13 +5,14 @@ import MenuClass.Category;
 import MenuClass.Drinks;
 import MenuClass.Product;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class ProductManager implements CRUD<Product> {
-    private final ArrayList<Product> products;
+    private ArrayList<Product> products;
     final CategoryManager categoryManager;
 
     public ProductManager(CategoryManager categoryManager) {
@@ -339,4 +340,89 @@ public class ProductManager implements CRUD<Product> {
             System.out.println("There are no products in the list.");
         }
     }
+    public  void  maxWeightCandy(){
+        ArrayList<Candy> listCandy = new ArrayList<>();
+        for (Product element : products) {
+            if (element instanceof Candy) {
+                listCandy.add((Candy) element);
+            }
+        }
+        if (!listCandy.isEmpty()){
+            int maxWeight = listCandy.get(0).getWeight();
+            for (Candy element : listCandy) {
+                if (element.getWeight()>maxWeight){
+                    maxWeight = element.getWeight();
+                }
+            }
+            System.out.println("Displays a list of Candy with the largest weight.");
+            title();
+            for (Candy element : listCandy){
+                if (element.getWeight()==maxWeight){
+                    element.display();
+                }
+            }
+        }else {
+            System.out.println("There are no products in the list.");
+        }
+    }
+    public void searchName(Scanner scanner){
+        System.out.println("Enter name to find.");
+        String name = scanner.nextLine();
+        boolean flag = false;
+        for (Product element : products) {
+            if ((element.getName().contains(name))) {
+                System.out.println(element);
+                flag = true;
+            }
+        }
+        if (!flag){
+            System.out.println("There are no products in the list.");
+        }
+    }
+    public  void  writeFile(String path){
+        File file = new File(path);
+        try{
+            OutputStream os = new FileOutputStream(file);
+            ObjectOutputStream oos = new ObjectOutputStream(os);
+            oos.writeObject(products);
+//            for (Product element :products){
+//                oos.writeObject(element);
+//            }
+            oos.flush();
+            oos.close();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+    public void  readFile(String path){
+        File file = new File(path);
+        try{
+
+            InputStream is =new  FileInputStream(file);
+
+            if( is.available()>0){
+                ObjectInputStream ois = new ObjectInputStream(is);
+                products = (ArrayList<Product>) ois.readObject();
+                ois.close();
+            }
+//            Product listProduct;
+
+//            while (true){
+//               Object oj = ois.readObject();
+//               if (oj==null){
+//                   break;
+//               }
+//               if(oj!=null){
+//                   listProduct = (Product) oj;
+//                   this.products.add(listProduct);
+//               }
+//            }
+
+        }catch (IOException e){
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
+
